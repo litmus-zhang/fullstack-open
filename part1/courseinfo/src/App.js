@@ -51,13 +51,34 @@ function App() {
     ]
   }
 
-  const [clicks, setClics] = useState({
+  const [clicks, setClicks] = useState({
     left: 0,
     right: 0
   });
+  const [allClicks, setAll] = useState([]);
   useEffect(() => { }, [clicks]);
-  const handleLeftClick = () => { clicks.left++; setClics(clicks) }
-  const handleRightClick = () => { clicks.right++; setClics(clicks) }
+  const handleLeftClick = () => {
+    setAll(allClicks.concat('L'));
+    setClicks({ ...clicks, left: clicks.left + 1 });
+  }
+  const handleRightClick = () => {
+    setAll(allClicks.concat('R'));
+    setClicks({ ...clicks, right: clicks.right + 1 });
+  }
+
+  const resetClicks = () => {
+    setClicks({ left: 0, right: 0 });
+    setAll([]);
+  };
+  const setLeftClicktoNumber = (number) => {
+    setClicks({ ...clicks, left: number });
+    setAll(allClicks.filter((click) => click !== 'L'));
+
+  };
+  const setRightClicktoNumber = (number) => {
+    setClicks({ ...clicks, right: number });
+    setAll(allClicks.filter((click) => click !== 'R'));
+  };
   console.log(clicks);
   return (
     <div>
@@ -74,7 +95,22 @@ function App() {
             right
           </button>
           {clicks.right}
+          <br />
+          <button onClick={resetClicks}>
+            reset
+          </button>
+          <br />
+          <button onClick={() => setLeftClicktoNumber(0)}>
+            set left to 0
+          </button>
+          <button onClick={() => setRightClicktoNumber(0)}>
+            set right to 0
+          </button>
         </div>
+
+        {
+          allClicks.length ? <p>{allClicks.join(' - ')}</p> : <p>No clicks yet</p>
+        }
       </main >
     </div >
   );
