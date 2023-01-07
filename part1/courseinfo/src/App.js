@@ -35,7 +35,7 @@ const Total = (props) => {
   );
 };
 function App() {
-  const course = {
+  const course = [{
     name: 'Half Stack application development',
     parts: [
       {
@@ -49,7 +49,22 @@ function App() {
         exercises: 14
       }
     ]
-  }
+  }, {
+    name: 'Node.js',
+    id: 2,
+    parts: [
+      {
+        name: 'Routing',
+        exercises: 3,
+        id: 1
+      },
+      {
+        name: 'Middlewares',
+        exercises: 7,
+        id: 2
+      }
+    ]
+  }]
 
   const [clicks, setClicks] = useState({
     left: 0,
